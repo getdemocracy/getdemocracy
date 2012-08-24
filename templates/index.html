@@ -1,0 +1,15 @@
+
+{% if get_mv_id %}
+<table>
+{% for key,value in get_mv_id.items %}
+	<tr>
+		<td>{{value}}</td>
+		<td><a href="{{ilk_kanun}}{{key}}">ilk kanun teklifleri</a></td>
+	</tr>
+{% endfor %}
+</table>
+{% endif %}
+get democracy right now!!
+{% if update_status %}
+<b>{{ update_status }}</b>
+{% endif %}
