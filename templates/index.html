@@ -1,15 +1,22 @@
-
-{% if get_mv_id %}
+<h3>get democracy right now!!</h3>
+{% if mv_info %}
 <table>
-{% for key,value in get_mv_id.items %}
+	Milletvekilleri Listesi
 	<tr>
-		<td>{{value}}</td>
-		<td><a href="{{ilk_kanun}}{{key}}">ilk kanun teklifleri</a></td>
+		<td>Adı Soyadı</td>
+		<td>Parti</td>
+		<td>Şehir</td>
+	</tr>
+{% for mv in mv_info %}
+	<tr>
+		<td>{{mv.1}}</td>
+		<td>{{mv.2}}</td>
+		<td>{{mv.3}}</td>
 	</tr>
 {% endfor %}
 </table>
 {% endif %}
-get democracy right now!!
+
 {% if update_status %}
 <b>{{ update_status }}</b>
 {% endif %}
