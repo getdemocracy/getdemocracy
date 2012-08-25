@@ -4,9 +4,9 @@ class Party(models.Model):
 	name = models.CharField(max_length = 30)	
 
 class MV(models.Model):
-	name  = models.CharField(max_length = 30)
 	mv_id = models.IntegerField()
-	party = models.ForeignKey(Party)
+	name  = models.CharField(max_length = 30)
+	party = models.CharField(max_length = 15)
 	city  =	models.CharField(max_length = 20)
 
 class MVWorkCount(models.Model):
