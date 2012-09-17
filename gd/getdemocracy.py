@@ -1,32 +1,36 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+# author: furiston
 
 import urllib2
 from bs4 import BeautifulSoup
 import re, os, sys, csv
 import gdsettings as gds
 
-mv_ids = []
-mv_all_work = {}
-parties = []
 def main():
-   html = BeautifulSoup(urllib2.urlopen(gds.MV_LIST_LINK), from_encoding="iso-8859-9")   
-   city = ""
-   mvno = ""
-   mvname = ""
-   mvparty = ""
+   
+   #
+   # the function retrieves whole data from the source and record it to a csv file
+   #
+
+   html = BeautifulSoup(urllib2.urlopen(gds.MV_LIST_LINK), from_encoding="iso-8859-9")
    parseData = html.table.table.table.find_all('td', align="left")
-   dataToArray = []
-   d = []
+   
+   temporaryList = []
 
    for info in parseData:
-      d.append(info)
+      temporaryList.append(info)
 
-   for x in d:
+   dataToArray = []
+
+   for x in temporaryList:
       dataToArray.append(str(x))
 
-   listOfMv = csv.writer(open('../mvlist.csv', 'w'))
-   listOfParties = csv.writer(open('../partylist.csv', 'w'))
+   mvCsvFile = open('../mvlist.csv', 'w')
+   listOfMv = csv.DictWriter(mvCsvFile, delimiter=',', fieldnames=['MVNO', 'MVNAME', 'MVPARTY', 'MVCITY', 'MV_ILK_KANUN', 'MV_KANUN', 'MV_ILK_MAO', 'MV_MAO', 'MV_ILK_GGO', 'MV_GGO', 'MV_ILK_GO', 'MV_GO', 'MV_SSO', 'MV_YSO'])
+   listOfMv.writeheader()
+
+   counter = 0
 
    for data in dataToArray:
       if '<b>' in data:
@@ -35,14 +39,17 @@ def main():
       if 'href' in data:
          mvno = data[112:116]
          mvname = data[118:-9]
-         mv_ids.append(mvno)
 
       if not '<b>' in data and not 'href' in data:
          mvparty = data[17:-5]
-         if not mvparty in parties:
-            parties.append(mvparty)
-            listOfParties.writerow([mvparty])
-         listOfMv.writerow([mvno, mvname, mvparty, city])
+         resultsetDict = mv_workcount(mvno)
+         mvBasic = {'MVNO': mvno, 'MVNAME': mvname, 'MVPARTY': mvparty, 'MVCITY': city}
+         mvWhole = dict(resultsetDict.items() + mvBasic.items())
+         listOfMv.writerow(mvWhole)
+         counter += 1 
+         print counter
+
+   mvCsvFile.close()
 
 def mvinfo():
    listOfMv = csv.reader(open('mvlist.csv'))
@@ -50,13 +57,6 @@ def mvinfo():
    for mv in listOfMv:
       mv_info.append(mv)
    return mv_info
-
-def getpartylist():
-   listOfParties = csv.reader(open('../partylist.csv'))
-   parties = []
-   for party in listOfParties:
-      parties.append(party)
-   return parties
 
 def mv_workcount(idmv):
    all_links1 = [gds.MV_ILK_KANUN, gds.MV_KANUN, gds.MV_ILK_MAO, gds.MV_MAO, gds.MV_ILK_GGO, gds.MV_GGO, gds.MV_ILK_GO, gds.MV_GO]
@@ -74,24 +74,9 @@ def mv_workcount(idmv):
       html = BeautifulSoup(urllib2.urlopen(link + str(idmv)), "lxml")
       resultset.append(len(html.find_all('tr', valign="TOP"))/2)
 
-   return resultset
+   resultsetDict = {'MV_ILK_KANUN': resultset[0], 'MV_KANUN': resultset[1], 'MV_ILK_MAO': resultset[2], 'MV_MAO': resultset[3], 'MV_ILK_GGO': resultset[4], 'MV_GGO': resultset[5], 'MV_ILK_GO': resultset[6], 'MV_GO': resultset[7], 'MV_SSO': resultset[8], 'MV_YSO': resultset[9]}
 
-def gather_all_work():
-   main()
-   i = 0
-   for key in mv_ids:
-      mv_all_work[key] = mv_workcount(key)
-      i += 1
-      print i
-
-   datatocsv = csv.DictWriter(open('../mv_works_db.csv', 'wb'), mv_all_work.keys())
-   datatocsv.writeheader()
-   datatocsv.writerow(mv_all_work)
-
-   return mv_all_work
+   return resultsetDict
 
 if __name__=="__main__":
-   # gather_all_work()
-   # main()
-   mvinfo()
-   # getpartylist()
+   main()
