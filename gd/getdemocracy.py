@@ -14,12 +14,13 @@ def main():
    #
 
    html = BeautifulSoup(urllib2.urlopen(gds.MV_LIST_LINK), from_encoding="iso-8859-9")
-   parseData = html.table.table.table.find_all('td', align="left")
+   parseData = html.table.find_all('td')
    
    temporaryList = []
 
    for info in parseData:
-      temporaryList.append(info)
+      if not info.string.isspace():
+         temporaryList.append(info)
 
    dataToArray = []
 
@@ -27,21 +28,27 @@ def main():
       dataToArray.append(str(x))
 
    mvCsvFile = open('../mvlist.csv', 'w')
+
    listOfMv = csv.DictWriter(mvCsvFile, delimiter=',', fieldnames=['MVNO', 'MVNAME', 'MVPARTY', 'MVCITY', 'MV_ILK_KANUN', 'MV_KANUN', 'MV_ILK_MAO', 'MV_MAO', 'MV_ILK_GGO', 'MV_GGO', 'MV_ILK_GO', 'MV_GO', 'MV_SSO', 'MV_YSO'])
    listOfMv.writeheader()
 
    counter = 0
 
-   for data in dataToArray:
+   city = ""
+   mvno = ""
+   mvname = ""
+   mvparty = ""
+
+   for data in dataToArray:      
       if '<b>' in data:
-         city = data[20:-9]
+         city = data[36:-16]
 
       if 'href' in data:
          mvno = data[112:116]
          mvname = data[118:-9]
 
       if not '<b>' in data and not 'href' in data:
-         mvparty = data[17:-5]
+         mvparty = data[17:-5]     
          resultsetDict = mv_workcount(mvno)
          mvBasic = {'MVNO': mvno, 'MVNAME': mvname, 'MVPARTY': mvparty, 'MVCITY': city}
          mvWhole = dict(resultsetDict.items() + mvBasic.items())
