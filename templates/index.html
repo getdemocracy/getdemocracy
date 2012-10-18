@@ -1,4 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
 <h3>get democracy right now!!</h3>
+{% if filelist %}
+{% for file in filelist %}
+ {{ file }}<br>
+{% endfor %}
+{% endif %}
 {% if mv_info %}
 <table>
 	Milletvekilleri Listesi
@@ -9,9 +16,9 @@
 	</tr>
 {% for mv in mv_info %}
 	<tr>
-		<td>{{mv.1}}</td>
-		<td>{{mv.2}}</td>
-		<td>{{mv.3}}</td>
+		<td>{{mv.MVNAME}}</td>
+		<td>{{mv.MVPARTY}}</td>
+		<td>{{mv.MVCITY}}</td>
 	</tr>
 {% endfor %}
 </table>
@@ -20,3 +27,5 @@
 {% if update_status %}
 <b>{{ update_status }}</b>
 {% endif %}
+
+{% endblock %}
