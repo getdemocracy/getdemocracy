@@ -1,11 +1,11 @@
 from django.shortcuts import render_to_response
-from getdemocracy import mvinfo, getpartylist
+from getdemocracy import main as updateMvInfo, mvinfo
 import gdsettings as gds
 from models import MV, Party, MVWorkCount
+import datetime, glob
 
 def update_1982(request):
-	get_mv_info = mvinfo()
-	partylist = getpartylist()
+	updateMvInfo()
 
 	# for party in partylist:
 	# 	p = Party(name=party)
@@ -21,6 +21,9 @@ def update_1982(request):
 	return render_to_response('index.html', {'update_status':"updated"})
 
 def home(request):
-	mv_info = mvinfo()
+	allfiles = []
+	for files in glob.glob('*.csv'):
+		allfiles.append(files)
+	mv_info = mvinfo(str(allfiles[0]))
 	ilk_kanun = gds.MV_ILK_KANUN
-	return render_to_response('index.html', {'mv_info':mv_info, 'ilk_kanun':ilk_kanun})
+	return render_to_response('index.html', {'mv_info':mv_info, 'filelist':allfiles})

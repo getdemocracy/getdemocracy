@@ -4,7 +4,7 @@
 
 import urllib2
 from bs4 import BeautifulSoup
-import re, os, sys, csv
+import re, os, sys, csv, datetime
 import gdsettings as gds
 
 def main():
@@ -27,7 +27,7 @@ def main():
    for x in temporaryList:
       dataToArray.append(str(x))
 
-   mvCsvFile = open('../mvlist.csv', 'w')
+   mvCsvFile = open('..'+str(datetime.date.today())+'.csv', 'w')
 
    listOfMv = csv.DictWriter(mvCsvFile, delimiter=',', fieldnames=['MVNO', 'MVNAME', 'MVPARTY', 'MVCITY', 'MV_ILK_KANUN', 'MV_KANUN', 'MV_ILK_MAO', 'MV_MAO', 'MV_ILK_GGO', 'MV_GGO', 'MV_ILK_GO', 'MV_GO', 'MV_SSO', 'MV_YSO'])
    listOfMv.writeheader()
@@ -58,12 +58,9 @@ def main():
 
    mvCsvFile.close()
 
-def mvinfo():
-   listOfMv = csv.reader(open('mvlist.csv'))
-   mv_info = []
-   for mv in listOfMv:
-      mv_info.append(mv)
-   return mv_info
+def mvinfo(filename):
+   listOfMv = csv.DictReader(open(filename))   
+   return listOfMv
 
 def mv_workcount(idmv):
    all_links1 = [gds.MV_ILK_KANUN, gds.MV_KANUN, gds.MV_ILK_MAO, gds.MV_MAO, gds.MV_ILK_GGO, gds.MV_GGO, gds.MV_ILK_GO, gds.MV_GO]
