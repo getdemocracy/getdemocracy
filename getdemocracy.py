@@ -29,7 +29,7 @@ def main():
    for x in temporaryList:
       dataToArray.append(str(x))
 
-   mvCsvFile = open('..'+str(datetime.date.today())+'.csv', 'w')
+   mvCsvFile = open(str(datetime.date.today())+'.csv', 'w')
 
    listOfMv = csv.DictWriter(mvCsvFile, delimiter=',', fieldnames=['MVNO', 'MVNAME', 'MVPARTY', 'MVCITY', 'MV_ILK_KANUN', 'MV_KANUN', 'MV_ILK_MAO', 'MV_MAO', 'MV_ILK_GGO', 'MV_GGO', 'MV_ILK_GO', 'MV_GO', 'MV_SSO', 'MV_YSO'])
    listOfMv.writeheader()
@@ -84,9 +84,45 @@ def mv_workcount(idmv):
 
    return resultsetDict
 
-def mvCsvToDb():
+def mvCsvToDb(record_option):
+
+   # if record_option is 1 it will save mvdata to MV table then save numeric data to Mv_records
+   # if record_option is 2 it will only save numeric data to Mv_records
+
    allfiles = []
    for files in glob.glob('*.csv'):
       allfiles.append(files)
    mv_info = mvinfo(str(allfiles[0]))
-   return mv_info
+
+   dateoffile = datetime.datetime.strptime(os.path.splitext(str(allfiles[0]))[0].replace('-',''), '%Y%m%d').date()
+
+   for mv in mv_info:
+      if record_option == 1:
+         mvrecord = MV(
+            mv_id = int(mv.get('MVNO')),
+            name  = mv.get('MVNAME'),
+            party = mv.get('MVPARTY'),
+            city  = mv.get('MVCITY')
+            )
+         mvrecord.save()
+
+      mvdata = Mv_records(
+         mv        = MV.objects.get(pk=int(mv.get('MVNO'))),
+         date      = dateoffile,
+         ilk_kanun = mv.get('MV_ILK_KANUN'),
+         kanun     = mv.get('MV_KANUN'),
+         sso       = mv.get('MV_SSO'),
+         yso       = mv.get('MV_YSO'),
+         ilk_mao   = mv.get('MV_ILK_MAO'),
+         mao       = mv.get('MV_MAO'),
+         ilk_ggo   = mv.get('MV_ILK_GGO'),
+         ggo       = mv.get('MV_GGO'),
+         ilk_go    = mv.get('MV_ILK_GO'),
+         go        = mv.get('MV_GO')
+         )
+      mvdata.save()
+
+   print 'done with success'
+
+
+   # return mv_info
