@@ -1,16 +1,15 @@
 from django.db import models
 
-class Party(models.Model):
-	name = models.CharField(max_length = 30)	
 
 class MV(models.Model):
-	mv_id = models.IntegerField()
-	name  = models.CharField(max_length = 30)
-	party = models.CharField(max_length = 15)
-	city  =	models.CharField(max_length = 20)
+	mv_id     = models.IntegerField(primary_key=True)
+	name      = models.CharField(max_length = 30)
+	party     = models.CharField(max_length = 15)
+	city      =	models.CharField(max_length = 20, db_index=True)
 
-class MVWorkCount(models.Model):
-	mv_id     = models.ForeignKey(MV)
+class Mv_records(models.Model):
+	mv        = models.ForeignKey(MV)
+	date      = models.DateField(db_index=True)
 	ilk_kanun = models.IntegerField()
 	kanun     = models.IntegerField()
 	sso       = models.IntegerField()
