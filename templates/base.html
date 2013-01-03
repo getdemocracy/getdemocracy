@@ -21,7 +21,7 @@
     <![endif]-->
 
     <!-- Fav and touch icons -->
-    <link rel="shortcut icon" href="http://twitter.github.com/bootstrap/assets/ico/favicon.ico">
+    <link rel="shortcut icon" href="{% static "images/favicon.ico" %}">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-72-precomposed.png">
@@ -37,12 +37,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">getDemocracy()</a>
+          <a class="brand" href="#"><img src="{% static "images/logo.png" %}" alt="getDemocracy();"></a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li><a href="/"><img src="{% static "images/home.png" %}" height="20px"></a></li>
+              <li><a href="#about">Detay</a></li>
+              <li><a href="#">FanZin</a></li>
+              <li><a href="#contact">5N1K</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
