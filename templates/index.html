@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block content %}
-<div id="container-gr" style="min-width: 400px; height: 400px; margin: 0 auto; border-bottom: #666666 solid 1px;"></div>
+<div id="container-gr" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 <div id="container-gr2" style="min-width: 600px; height: 400px; margin: 0 auto"></div>
 <script src="{% static "js/highcharts.js" %}"></script>
 {% if mv_info %}
@@ -39,7 +39,7 @@ $(function () {
             },
             series: [{
                 type: 'pie',
-                innerSize: '50%',
+                innerSize: '55%',
                 name: 'Sandalye Paylaşımı',
                 data: [{% for mv in mv_info %}{name: '{{mv.party}}',y: {{mv.dcount}} },{% endfor %}]
             }]
@@ -85,7 +85,7 @@ $(function () {
             },
             series: [{
                 type: 'pie',
-                innerSize: '50%',
+                innerSize: '55%',
                 name: 'Şehirlerin Vekil Sayıları',
                 data: [{% for city in city_info %}{name: '{{city.city}}',y: {{city.dcount}} },{% endfor %}]
             }]
