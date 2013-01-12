@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+{% if mvdata %}
+    <div class="btn-group">
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+        Milletvekili Seç
+        <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            {% for mv in mvdata %}
+                <li><a href="/getmvdata/{{ mv.mv_id }}">{{ mv.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+{% endblock %}

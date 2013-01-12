@@ -2,15 +2,18 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse
 from django.template import RequestContext
 from models import MV, Mv_records
-from django.db.models import Count
+from django.db.models import Count, Sum
 from django.core import serializers
 
 def home(request):
-	mv_info = MV.objects.values('party').annotate(dcount=Count('party'))
-	city_info = MV.objects.values('city').annotate(dcount=Count('city'))
-	return render_to_response('index.html', {'mv_info': mv_info, 'city_info': city_info}, context_instance=RequestContext(request))
+	partypercent = MV.objects.values('party').annotate(dcount=Count('party'))
+	return render_to_response('index.html', {'partypercent': partypercent}, context_instance=RequestContext(request))
 
-def homejson(request):
-	mv_i = MV.objects.values('party').annotate(dcount=Count('party'))
-	mvx = serializers.serialize('json', mv_i)
+def detail(request):
+	mvdata = MV.objects.all()
+	return render_to_response('detail.html', {'mvdata': mvdata}, context_instance=RequestContext(request))
+
+def getmvdata(request, mvnum):
+	numbersof = Mv_records.objects.filter(mv=mvnum)
+	mvx = serializers.serialize('json', numbersof)
 	return HttpResponse(mvx, mimetype='application/json')

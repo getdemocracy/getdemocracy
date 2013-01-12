@@ -8,7 +8,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'gd.views.home', name='home'),
-    url(r'^homejson', 'gd.views.homejson', name='home'),
+    url(r'^getmvdata/(\d{4})/$', 'gd.views.getmvdata'),
+    url(r'^detay/', 'gd.views.detail', name='detail'),
     # url(r'^getDemocracy/', include('getDemocracy.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
