@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block content %}
-<div id="container-gr" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div id="chairnums"></div>
 <script src="{% static "js/highcharts.js" %}"></script>
 {% if partypercent %}
 <script type="text/javascript">
@@ -10,8 +10,9 @@ $(function () {
     $(document).ready(function() {
         chart = new Highcharts.Chart({
             chart: {
-                renderTo: 'container-gr',
-                plotBackgroundColor: null,
+                renderTo: 'chairnums',
+                backgroundColor: null,
+                plotBackgroundColor: 'none',
                 plotBorderWidth: null,
                 plotShadow: false
             },
