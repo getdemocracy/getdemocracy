@@ -1,17 +1,50 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block content %}
-{% if mvdata %}
-    <div class="btn-group">
-        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-        Milletvekili Seç
-        <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu">
-            {% for mv in mvdata %}
-                <li><a href="/getmvdata/{{ mv.mv_id }}">{{ mv.name }}</a></li>
-            {% endfor %}
-        </ul>
+    <div class="form-search">
+        <div class="input-append">
+            <input type="text" id="search_mv" data-items="8" class="span4 search-query"/>
+            <input type="hidden" id="mvid" />
+            <button class="btn btn-primary" onclick="postThemAll()">Ara</button>
+        </div>
     </div>
+    <hr>
+    <div class="row">
+        <div id="mv_pic" class="span4"></div>
+        <table class="span6 table-condensed">
+            <tbody>
+                <tr id="result">
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% if mvdata %}
+
+    <script>
+    names = [];
+    ids = {};
+    $.getJSON('/getmvdata/all/', function (data) {
+        $.each(data, function(i,item) {
+            ids[item.fields.name] = item.pk;
+            names.push(item.fields.name);
+        });
+    });
+    $("#search_mv").typeahead({
+        source:names,
+        updater: function (item) {
+            $('#mvid').val(ids[item]);
+            return item;
+        }
+    });
+    </script>
+
 {% endif %}
+    <script>
+        function postThemAll(){
+            $.getJSON('/getmvdata/'+$('#mvid').val(),function(data){
+                $('#result').html('<td>İmzaladığı Kanun Teklifleri</td><td>' + data[0].fields.kanun + '</td>');
+            });
+            $('#mv_pic').html('<img src="http://www.tbmm.gov.tr/mv_resim/' + $('#mvid').val() + '.jpg"/>');
+        }
+    </script>
 {% endblock %}

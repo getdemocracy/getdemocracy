@@ -19,6 +19,6 @@ def getmvdata(request, mvnum):
 	return HttpResponse(mvx, mimetype='application/json')
 
 def mvnames(request):
-    allnames = MV.objects.all()
-    all_names = serializers.serialize('json',allnames)
+    allnames = MV.objects.defer('mv_id', 'name')
+    all_names = serializers.serialize('json',allnames, fields=('mv_id', 'name'))
     return HttpResponse(all_names,mimetype='application/json')
