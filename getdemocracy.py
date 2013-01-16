@@ -94,8 +94,6 @@ def mvCsvToDb(record_option):
       allfiles.append(files)
    mv_info = mvinfo(str(allfiles[0]))
 
-   dateoffile = datetime.datetime.strptime(os.path.splitext(str(allfiles[0]))[0].replace('-',''), '%Y%m%d').date()
-
    for mv in mv_info:
       if record_option == 1:
          mvrecord = MV(
@@ -108,7 +106,7 @@ def mvCsvToDb(record_option):
 
       mvdata = Mv_records(
          mv        = MV.objects.get(pk=int(mv.get('MVNO'))),
-         date      = dateoffile,
+         date      = datetime.date.today(),
          ilk_kanun = mv.get('MV_ILK_KANUN'),
          kanun     = mv.get('MV_KANUN'),
          sso       = mv.get('MV_SSO'),
