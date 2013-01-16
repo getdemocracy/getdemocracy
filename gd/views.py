@@ -17,3 +17,8 @@ def getmvdata(request, mvnum):
 	numbersof = Mv_records.objects.filter(mv=mvnum)
 	mvx = serializers.serialize('json', numbersof)
 	return HttpResponse(mvx, mimetype='application/json')
+
+def mvnames(request):
+    allnames = MV.objects.all()
+    all_names = serializers.serialize('json',allnames)
+    return HttpResponse(all_names,mimetype='application/json')
