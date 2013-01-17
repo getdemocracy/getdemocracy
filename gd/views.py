@@ -12,6 +12,9 @@ def home(request):
 	return render_to_response('index.html', {'partypercent': partypercent}, context_instance=RequestContext(request))
 
 def home_maintenance(request):
+    """
+    view for maintenance mode
+    """
     mNote = 'Şu anda ek geliştirmeler yapılmaktadır.'
     return render_to_response('index.html', {'mnote':mNote}, context_instance=RequestContext(request))
 
@@ -20,7 +23,7 @@ def detail(request):
 	return render_to_response('detail.html', {'mvdata': mvdata}, context_instance=RequestContext(request))
 
 def getmvdata(request, mvnum):
-	numbersof = Mv_records.objects.filter(mv=mvnum)
+	numbersof = Mv_records.objects.filter(mv=mvnum).order_by('-date')
 	mvx = serializers.serialize('json', numbersof)
 	return HttpResponse(mvx, mimetype='application/json')
 
