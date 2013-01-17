@@ -12,9 +12,7 @@
     <div class="row">
         <div id="mv_pic" class="span4"></div>
         <table class="span6 table-condensed">
-            <tbody>
-                <tr id="result">
-                </tr>
+            <tbody id="result">
             </tbody>
         </table>
     </div>
@@ -42,9 +40,31 @@
     <script>
         function postThemAll(){
             $.getJSON('/getmvdata/'+$('#mvid').val(),function(data){
-                $('#result').html('<td>İmzaladığı Kanun Teklifleri</td><td>' + data[0].fields.kanun + '</td>');
+                $('#result').html(
+                        '<tr><td>Sunduğu Kanun Teklifleri</td><td>' + data[0].fields.ilk_kanun + '</td></tr>'
+                        + '<tr><td>İmzaladığı Kanun Teklifleri</td><td>' + data[0].fields.kanun + '</td></tr>'
+                        + '<tr><td>Sunduğu Meclis Araştırma Önergeleri</td><td>' + data[0].fields.ilk_mao + '</td></tr>'
+                        + '<tr><td>İmzaladığı Meclis Araştırma Önergeleri</td><td>' + data[0].fields.mao + '</td></tr>'
+                        + '<tr><td>Sunduğu Genel Görüşme Önergeleri</td><td>' + data[0].fields.ilk_ggo + '</td></tr>'
+                        + '<tr><td>İmzaladığı Genel Görüşme Önergeleri</td><td>' + data[0].fields.ggo + '</td></tr>'
+                        + '<tr><td>Sunduğu Gensoru Önergeleri</td><td>' + data[0].fields.ilk_go + '</td></tr>'
+                        + '<tr><td>İmzaladığı Gensoru Önergeleri</td><td>' + data[0].fields.go + '</td></tr>'
+                        + '<tr><td>Yazılı Soru Önergeleri</td><td>' + data[0].fields.yso + '</td></tr>'
+                        + '<tr><td>Sözlü Soru Önergeleri</td><td>' + data[0].fields.sso + '</td></tr>'
+                );
             });
             $('#mv_pic').html('<img src="http://www.tbmm.gov.tr/mv_resim/' + $('#mvid').val() + '.jpg"/>');
         }
     </script>
 {% endblock %}
+
+ilk_kanun = mv.get('MV_ILK_KANUN'),
+kanun     = mv.get('MV_KANUN'),
+sso       = mv.get('MV_SSO'),
+yso       = mv.get('MV_YSO'),
+ilk_mao   = mv.get('MV_ILK_MAO'),
+mao       = mv.get('MV_MAO'),
+ilk_ggo   = mv.get('MV_ILK_GGO'),
+ggo       = mv.get('MV_GGO'),
+ilk_go    = mv.get('MV_ILK_GO'),
+go
