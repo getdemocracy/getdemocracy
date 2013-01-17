@@ -92,7 +92,7 @@ def mvCsvToDb(record_option):
    allfiles = []
    for files in glob.glob('*.csv'):
       allfiles.append(files)
-   mv_info = mvinfo(str(allfiles[0]))
+   mv_info = mvinfo(str(allfiles[len(glob.glob('*.csv'))-1]))
 
    for mv in mv_info:
       if record_option == 1:
