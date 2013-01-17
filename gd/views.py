@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse
 from django.template import RequestContext
@@ -8,6 +10,10 @@ from django.core import serializers
 def home(request):
 	partypercent = MV.objects.values('party').annotate(dcount=Count('party'))
 	return render_to_response('index.html', {'partypercent': partypercent}, context_instance=RequestContext(request))
+
+def home_maintenance(request):
+    mNote = 'Şu anda ek geliştirmeler yapılmaktadır.'
+    return render_to_response('index.html', {'mnote':mNote}, context_instance=RequestContext(request))
 
 def detail(request):
 	mvdata = MV.objects.all()

@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block content %}
+    {% if mnote %}
+        <h3>{{ mnote }}</h3>
+    {% endif %}
 <div id="chairnums"></div>
 <script src="{% static "js/highcharts.js" %}"></script>
 {% if partypercent %}
