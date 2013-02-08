@@ -8,4 +8,5 @@ Dependencies:
 
 - BeautifulSoup4
 - Urllib2
-- Postgresql
+- Python-lxml
+- Postgresql-9.2 (i didn't test with an earlier version.)

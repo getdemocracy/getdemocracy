@@ -2,11 +2,12 @@
 {% load staticfiles %}
 {% block content %}
     {% if mnote %}
-        <h3>{{ mnote }}</h3>
+        <h1>{{ mnote }}</h1>
     {% endif %}
-<div id="chairnums"></div>
+<div id="chairnums" class="span12"></div>
 <script src="{% static "js/highcharts.js" %}"></script>
 {% if partypercent %}
+
 <script type="text/javascript">
 $(function () {
     var chart;

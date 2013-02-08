@@ -1,20 +1,20 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block content %}
-    <div class="form-search">
-        <div class="input-append">
-            <input type="text" id="search_mv" data-items="8" class="span4 search-query"/>
+    <div class="span12">
+        <div class="form-inline">
+            <label class="control-label" for="search_mv">Bilgilerini görmek istediğiniz milletvekilinin adını yazınız:</label>
+            <input type="text" id="search_mv" data-items="8" class="span4"/>
             <input type="hidden" id="mvid" />
             <button class="btn btn-primary" onclick="postThemAll()">Ara</button>
         </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div id="mv_pic" class="span4"></div>
-        <table class="span6 table-condensed">
-            <tbody id="result">
-            </tbody>
-        </table>
+        <div class="row">
+            <div id="mv_pic" class="span4"></div>
+            <table class="span6 table-condensed">
+                <tbody id="result">
+                </tbody>
+            </table>
+        </div>
     </div>
 {% if mvdata %}
 
@@ -57,14 +57,3 @@
         }
     </script>
 {% endblock %}
-
-ilk_kanun = mv.get('MV_ILK_KANUN'),
-kanun     = mv.get('MV_KANUN'),
-sso       = mv.get('MV_SSO'),
-yso       = mv.get('MV_YSO'),
-ilk_mao   = mv.get('MV_ILK_MAO'),
-mao       = mv.get('MV_MAO'),
-ilk_ggo   = mv.get('MV_ILK_GGO'),
-ggo       = mv.get('MV_GGO'),
-ilk_go    = mv.get('MV_ILK_GO'),
-go
