@@ -7,14 +7,15 @@ from django.conf import settings
 # admin.autodiscover()
 
 if settings.MAINTENANCE_MODE:
-    urlpatterns = patterns('',
-        # Examples:
+    urlpatterns = patterns(
+        '',
         url(r'^$', 'gd.views.home_maintenance', name='home'),
         url(r'^detay/', 'gd.views.home_maintenance', name='detail'),
     )
 
 else:
-    urlpatterns = patterns('',
+    urlpatterns = patterns(
+        '',
         # Examples:
         url(r'^$', 'gd.views.home', name='home'),
         url(r'^getmvdata/all/', 'gd.views.mvnames'),

@@ -1,6 +1,5 @@
 #chairnums{
-	background: url("../images/parliament.png") no-repeat;
-    background-position: center center;
+    background: url("../images/parliament.png") no-repeat center center;
     border-radius: 5px 5px 5px 5px;
     margin: auto;
     min-width: 400px;
