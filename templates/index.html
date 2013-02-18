@@ -4,7 +4,9 @@
     {% if mnote %}
         <h1>{{ mnote }}</h1>
     {% endif %}
-<div id="chairnums" class="span12"></div>
+<div class="row">
+    <div id="chairnums" class="span6"></div>
+</div>
 <script src="{% static "js/highcharts.js" %}"></script>
 {% if partypercent %}
 
@@ -24,7 +26,7 @@ $(function () {
                 text: 'TBMM Sandalye Paylaşımı'
             },
             tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+                pointFormat: '<b>{point.y} sandalye</b>',
                 percentageDecimals: 1
             },
             plotOptions: {
@@ -34,9 +36,10 @@ $(function () {
                     dataLabels: {
                         enabled: true,
                         color: '#000000',
+                        distance: 25,
                         connectorColor: '#000000',
                         formatter: function() {
-                            return '<b>'+ this.point.name +'</b>: '+ this.y +' sandalye';
+                            return '<b>'+ this.point.name +'</b>';
                         }
                     }
                 }

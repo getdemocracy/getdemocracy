@@ -1,20 +1,19 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block content %}
-    <div class="span12">
+    <div id="marketing">
+    <div class="row-fluid">
         <div class="form-inline">
             <label class="control-label" for="search_mv">Bilgilerini görmek istediğiniz milletvekilinin adını yazınız:</label>
             <input type="text" id="search_mv" data-items="8" class="span4"/>
             <input type="hidden" id="mvid" />
             <button class="btn btn-primary" onclick="postThemAll()">Ara</button>
         </div>
-        <div class="row">
-            <div id="mv_pic" class="span4"></div>
-            <table class="span6 table-condensed">
-                <tbody id="result">
-                </tbody>
-            </table>
-        </div>
+    </div><br><br>
+    <div class="row-fluid">
+        <div id="mv_pic" class="span2"></div>
+        <div id="result" class="span4"></div>
+    </div>
     </div>
 {% if mvdata %}
 
@@ -41,7 +40,7 @@
         function postThemAll(){
             $.getJSON('/getmvdata/'+$('#mvid').val(),function(data){
                 $('#result').html(
-                        '<tr><td>Sunduğu Kanun Teklifleri</td><td>' + data[0].fields.ilk_kanun + '</td></tr>'
+                        '<table id="result-table" class="table table-bordered table-striped"><tbody><tr><td>Sunduğu Kanun Teklifleri</td><td>' + data[0].fields.ilk_kanun + '</td></tr>'
                         + '<tr><td>İmzaladığı Kanun Teklifleri</td><td>' + data[0].fields.kanun + '</td></tr>'
                         + '<tr><td>Sunduğu Meclis Araştırma Önergeleri</td><td>' + data[0].fields.ilk_mao + '</td></tr>'
                         + '<tr><td>İmzaladığı Meclis Araştırma Önergeleri</td><td>' + data[0].fields.mao + '</td></tr>'
@@ -50,10 +49,11 @@
                         + '<tr><td>Sunduğu Gensoru Önergeleri</td><td>' + data[0].fields.ilk_go + '</td></tr>'
                         + '<tr><td>İmzaladığı Gensoru Önergeleri</td><td>' + data[0].fields.go + '</td></tr>'
                         + '<tr><td>Yazılı Soru Önergeleri</td><td>' + data[0].fields.yso + '</td></tr>'
-                        + '<tr><td>Sözlü Soru Önergeleri</td><td>' + data[0].fields.sso + '</td></tr>'
+                        + '<tr><td>Sözlü Soru Önergeleri</td><td>' + data[0].fields.sso + '</td></tr></tbody></table>'
                 );
             });
             $('#mv_pic').html('<img src="http://www.tbmm.gov.tr/mv_resim/' + $('#mvid').val() + '.jpg"/>');
+            $('#search_mv').val('');
         }
     </script>
 {% endblock %}

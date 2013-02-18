@@ -8,13 +8,13 @@
   <meta name="author" content="">
   <style>
   body {
-{#    padding-top: 60px;#}
     background: url('{% static "images/bg.png" %}') repeat;
   }
   </style>
-  <link href="{% static "css/bootstrap-responsive.css" %}" rel="stylesheet">
   <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+  <link href="{% static "css/bootstrap-responsive.css" %}" rel="stylesheet">
   <link href="{% static "css/custom.css" %}" rel="stylesheet">
+  <link href="{% static "css/docs.css" %}" rel="stylesheet">
   <script src="{% static "js/jquery.js" %}"></script>
   <script src="{% static "js/bootstrap.js" %}"></script>
 
@@ -32,36 +32,32 @@
 
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="navbar navbar-inverse">
-                <div class="navbar-inner">
-                    <div class="container">
-                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </a>
-                        <a class="brand" href="{% url home %}"><img src="{% static "images/logo.png" %}" alt="getDemocracy();"></a>
-                        <div class="nav-collapse collapse">
-                            <ul class="nav">
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-pencil icon-white"></i>Detay<b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="{% url detail %}"><i class="icon-user"></i>Vekil</a></li>
-                                        <li><a href="#"><i class="icon-pencil icon-white"></i> Parti</a></li>
-                                        <li><a href="#"><i class="icon-star icon-white"></i> Şehir</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#"><i class="icon-user icon-white"></i>En'ler</a></li>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand" href="/">GetDemocracy();</a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-pencil icon-white"></i> Detay<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url detail %}"><i class="icon-user"></i> Vekil</a></li>
+                                <li><a href="#"><i class="icon-flag"></i> Parti</a></li>
+                                <li><a href="#"><i class="icon-map-marker"></i> Şehir</a></li>
                             </ul>
-                        </div><!--/.nav-collapse -->
-                    </div>
+                        </li>
+                        <li><a href="#"><i class="icon-star icon-white"></i> En'ler</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </header>
-	<div class="container content">
+    </div>
+	<div class="container">
 
 		{% block content %}
 
@@ -69,8 +65,8 @@
 
 	</div>
     <footer>
-        <div class="container footer">
-            <div class="span12">
+        <div class="container-fluid footer">
+            <div class="row">
                 <p>GetDemocracy <a href="http://www.gnu.org/philosophy/free-sw.html">özgür</a> bir yazılımdır. <a href="/static/COPYING.txt">GNU GPL lisansı</a> ile sunulmaktadır.</p>
                 <p>copyright 2013 Get_Democracy()</p>
             </div>
