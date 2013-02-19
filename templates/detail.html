@@ -5,7 +5,7 @@
     <div class="row-fluid">
         <div class="form-inline">
             <label class="control-label" for="search_mv">Bilgilerini görmek istediğiniz milletvekilinin adını yazınız:</label>
-            <input type="text" id="search_mv" data-items="8" class="span4"/>
+            <input type="text" id="search_mv" data-items="8" class="span4" autocomplete="off"/>
             <input type="hidden" id="mvid" />
             <button class="btn btn-primary" onclick="postThemAll()">Ara</button>
         </div>
@@ -52,7 +52,9 @@
                         + '<tr><td>Sözlü Soru Önergeleri</td><td>' + data[0].fields.sso + '</td></tr></tbody></table>'
                 );
             });
-            $('#mv_pic').html('<img src="http://www.tbmm.gov.tr/mv_resim/' + $('#mvid').val() + '.jpg"/>');
+            $('#mv_pic').html(
+                '<img src="http://www.tbmm.gov.tr/mv_resim/' 
+                + $('#mvid').val() + '.jpg"/>');
             $('#search_mv').val('');
         }
     </script>

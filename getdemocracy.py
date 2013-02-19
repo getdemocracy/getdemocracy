@@ -12,13 +12,11 @@ from bs4 import BeautifulSoup
 
 
 def main():
-    #
-    # the function retrieves whole data from the source and record it to a csv file
-    #
-
     """
+    the function retrieves whole data from the source and record it to a csv file
+    after recording to a csv file call mvCsvToDb() with parameter 2 to write it to db.
 
-
+    :return: success
     """
     html = BeautifulSoup(urllib2.urlopen(gds.MV_LIST_LINK), from_encoding="iso-8859-9")
     parseData = html.table.find_all('td')
@@ -67,6 +65,8 @@ def main():
             print counter
 
     mvCsvFile.close()
+    mvCsvToDb(2)
+    print('success')
 
 
 def mvinfo(filename):
@@ -133,7 +133,11 @@ def mvCsvToDb(record_option):
         )
         mvdata.save()
 
-    print 'success'
+    print('success')
 
 
     # return mv_info
+
+
+if __name__ == "__main__":
+    main()
