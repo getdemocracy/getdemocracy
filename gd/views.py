@@ -31,7 +31,6 @@ def detail(request):
 
 def getmvdata(request, mvnum):
     """
-
     :param request:
     :param mvnum: mv_id
     :return: json data
@@ -45,6 +44,3 @@ def mvnames(request):
     allnames = MV.objects.defer('mv_id', 'name')
     all_names = serialize('json', allnames, fields=('mv_id', 'name'))
     return HttpResponse(all_names, mimetype='application/json')
-
-# [{"pk": 236, "model": "gd.mv_records", "fields": {"ilk_go": 0, "yso": 0, "ilk_ggo": 0, "ilk_mao": 0, "go": 0, "sso": 0, "mv": 6025, "kanun": 1, "date": "2013-02-14", "ggo": 0, "ilk_kanun": 0, "mao": 0}}, {"pk": 785, "model": "gd.mv_records", "fields": {"ilk_go": 0, "yso": 0, "ilk_ggo": 0, "ilk_mao": 0, "go": 0, "sso": 0, "mv": 6025, "kanun": 1, "date": "2013-02-14", "ggo": 0, "ilk_kanun": 0, "mao": 0}}]
-# [{"pk": 6025, "model": "gd.mv", "fields": {"party": "AK Parti", "name": "Egemen BA\u011eI\u015e", "city": "\u0130STANBUL"}}]

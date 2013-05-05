@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 # author: furiston
 
-import urllib2
-
-import os, csv, datetime, glob
+import os, csv, datetime, glob, requests
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "getDemocracy.settings")
 from gd.models import MV, Mv_records
@@ -18,7 +16,8 @@ def main():
 
     :return: success
     """
-    html = BeautifulSoup(urllib2.urlopen(gds.MV_LIST_LINK), from_encoding="iso-8859-9")
+    page = requests.get(str(gds.MV_LIST_LINK))
+    html = BeautifulSoup(page.text, from_encoding="iso-8859-9")
     parseData = html.table.find_all('td')
 
     temporaryList = []
@@ -82,13 +81,15 @@ def mv_workcount(idmv):
     resultset = []
 
     for link in all_links1:
-        html = BeautifulSoup(urllib2.urlopen(link + str(idmv)), "lxml")
+        page = requests.get(link + str(idmv))
+        html = BeautifulSoup(page.text, "lxml")
         for table in html.find_all('table'):
             if '2' in table.get('border'):
                 resultset.append(len(table.find_all('tr')) - 1)
 
     for link in all_links2:
-        html = BeautifulSoup(urllib2.urlopen(link + str(idmv)), "lxml")
+        page = requests.get(link + str(idmv))
+        html = BeautifulSoup(page.text, "lxml")
         resultset.append(len(html.find_all('tr', valign="TOP")) / 2)
 
     resultsetDict = {'MV_ILK_KANUN': resultset[0], 'MV_KANUN': resultset[1], 'MV_ILK_MAO': resultset[2],
