@@ -100,8 +100,10 @@ def mv_workcount(idmv):
 
 
 def mvCsvToDb(record_option):
-    # if record_option is 1 it will save mvdata to MV table then save numeric data to Mv_records
-    # if record_option is 2 it will only save numeric data to Mv_records
+    """
+    if record_option is 1 it will save mvdata to MV table then save numeric data to Mv_records
+    if record_option is 2 it will only save numeric data to Mv_records
+    """
 
     allfiles = []
     for files in glob.glob('*.csv'):
