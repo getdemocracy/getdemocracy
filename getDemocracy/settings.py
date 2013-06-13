@@ -1,8 +1,7 @@
 # Django settings for getDemocracy project.
 
-import getpass
-
-currentUser = getpass.getuser()
+import os
+SITE_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -45,7 +44,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = os.path.abspath(os.path.join(SITE_ROOT, '../media'))
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -56,7 +55,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = '/home/' + currentUser + '/Dropbox/getdemocracy/getDemocracy/templates/statics'
+STATIC_ROOT = os.path.abspath(os.path.join(SITE_ROOT, '../templates/static'))
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -64,7 +63,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    '/home/' + currentUser + '/work/static',
+    os.path.abspath(os.path.join(SITE_ROOT, '../staticfiles')),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -104,7 +103,7 @@ ROOT_URLCONF = 'getDemocracy.urls'
 WSGI_APPLICATION = 'getDemocracy.wsgi.application'
 
 TEMPLATE_DIRS = (
-    "/home/" + currentUser + "/Dropbox/getdemocracy/getDemocracy/templates"
+    os.path.abspath(os.path.join(SITE_ROOT, '../templates')),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
