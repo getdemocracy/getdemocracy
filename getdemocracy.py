@@ -64,7 +64,9 @@ def main():
             print counter
 
     mvCsvFile.close()
-    mvCsvToDb(2)
+
+    # below save the data to db with option 1 to save changes of mv datas also
+    mvCsvToDb(1)
     print('success')
 
 

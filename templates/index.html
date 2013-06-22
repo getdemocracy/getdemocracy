@@ -4,57 +4,62 @@
     {% if mnote %}
         <h1>{{ mnote }}</h1>
     {% endif %}
-<div class="row">
-    <div id="chairnums" class="span6"></div>
-</div>
-<script src="{% static "js/highcharts.js" %}"></script>
-{% if partypercent %}
+    <div class="row">
+        <div id="chairnums" class="span12"></div>
+    </div>
+    <script src="{% static "js/highcharts.js" %}"></script>
+    {% if partypercent %}
 
-<script type="text/javascript">
-$(function () {
-    var chart;
-    $(document).ready(function() {
-        chart = new Highcharts.Chart({
-            chart: {
-                renderTo: 'chairnums',
-                backgroundColor: null,
-                plotBackgroundColor: 'none',
-                plotBorderWidth: null,
-                plotShadow: false
-            },
-            title: {
-                text: 'TBMM Sandalye Paylaşımı'
-            },
-            tooltip: {
-                pointFormat: '<b>{point.y} sandalye</b>',
-                percentageDecimals: 1
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: false,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        color: '#000000',
-                        distance: 25,
-                        connectorColor: '#000000',
-                        formatter: function() {
-                            return '<b>'+ this.point.name +'</b>';
-                        }
-                    }
-                }
-            },
-            series: [{
-                type: 'pie',
-                innerSize: '55%',
-                name: 'Sandalye Paylaşımı',
-                data: [{% for mv in partypercent %}{name: '{{mv.party}}',y: {{mv.dcount}} },{% endfor %}]
-            }]
-        });
-    });
-    
-});
+        <script type="text/javascript">
+            $(function () {
+                var chart;
+                $(document).ready(function () {
+                    chart = new Highcharts.Chart({
+                        chart: {
+                            renderTo: 'chairnums',
+                            backgroundColor: null,
+                            plotBackgroundColor: 'none',
+                            plotBorderWidth: null,
+                            plotShadow: false
+                        },
+                        title: {
+                            text: 'TBMM Sandalye Sayıları'
+                        },
+                        tooltip: {
+                            pointFormat: '<b>{point.y} sandalye</b>',
+                            percentageDecimals: 1
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: false,
+                                cursor: 'pointer',
+                                dataLabels: {
+                                    enabled: true,
+                                    color: '#000000',
+                                    distance: 25,
+                                    connectorColor: '#000000',
+                                    formatter: function () {
+                                        return '<b>' + this.point.name + '</b>';
+                                    }
+                                }
+                            }
+                        },
+                        series: [
+                            {
+                                type: 'pie',
+                                innerSize: '55%',
+                                name: 'Sandalye Paylaşımı',
+                                data: [
+                                        {% for mv in partypercent %}{name: '{{mv.party}}',y: {{mv.dcount}}
+                                            },{% endfor %}
+                                ]
+                            }
+                        ]
+                    });
+                });
 
-</script>
-{% endif %}
+            });
+
+        </script>
+    {% endif %}
 {% endblock %}

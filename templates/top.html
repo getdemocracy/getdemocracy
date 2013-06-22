@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+    <div class="row">
+        <div class="span3 bs-docs-sidebar">
+            <ul class="nav nav-list bs-docs-sidenav">
+                <li><a href="#" class="getdata" id="ilk_kanun"><i class="icon-chevron-right"></i> Sunduğu Kanun
+                    Teklifleri</a></li>
+                <li><a href="#" class="getdata" id="kanun"><i class="icon-chevron-right"></i> İmzaladığı Kanun
+                    Teklifleri</a></li>
+                <li><a href="#" class="getdata" id="sso"><i class="icon-chevron-right"></i> Sözlü Soru Önergeleri</a>
+                </li>
+                <li><a href="#" class="getdata" id="yso"><i class="icon-chevron-right"></i> Yazılı Soru Önergeleri</a>
+                </li>
+                <li><a href="#" class="getdata" id="ilk_mao"><i class="icon-chevron-right"></i> Sunduğu Araştırma
+                    Önergeleri</a></li>
+                <li><a href="#" class="getdata" id="mao"><i class="icon-chevron-right"></i> İmzaladığı Araştırma
+                    Önergeleri</a></li>
+                <li><a href="#" class="getdata" id="ilk_ggo"><i class="icon-chevron-right"></i> Sunduğu Genel Görüşme
+                    Önergeleri</a></li>
+                <li><a href="#" class="getdata" id="ggo"><i class="icon-chevron-right"></i> İmzaladığı Genel Görüşme
+                    Önergeleri</a></li>
+                <li><a href="#" class="getdata" id="ilk_go"><i class="icon-chevron-right"></i> Sunduğu Gensoru
+                    Önergeleri</a></li>
+                <li><a href="#" class="getdata" id="go"><i class="icon-chevron-right"></i> İmzaladığı Gensoru Önergeleri</a>
+                </li>
+            </ul>
+        </div>
+        <div class="span9">
+            <div id="top_numbers" class=""></div>
+        </div>
+    </div>
+
+    <script src="{% static "js/highcharts.js" %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.getdata').click(function () {
+                var datatip = $(this).attr('id');
+                var datatext = $(this).text()
+                $.ajax({
+                    type: 'GET',
+                    url: '/en/',
+                    data: {'datatip': datatip},
+                    success: function (data) {
+                        console.log(data)
+                        category_data = []
+                        series_data = []
+                        $.each(data, function(a,b){
+                            category_data.push("<b>"+b.mv_name+"</b><br>"+b.mv_party)
+                            series_data.push({name: b.mv_name, color: '#ff6600', y: b.skor })
+                        });
+                        var chart = new Highcharts.Chart({
+                            chart: {
+                                renderTo: 'top_numbers',
+                                backgroundColor: '#ffffff',
+                                plotBackgroundColor: 'none',
+                                plotBorderWidth: null,
+                                plotShadow: false
+                            },
+                            title: {
+                                text: datatext + 'ne göre ilk 10'
+                            },
+                            tooltip: {
+                                pointFormat: '<b>{point.y}</b>',
+                                percentageDecimals: 1
+                            },
+                            plotOptions: {
+                                column: {
+                                    pointPadding: 0,
+                                    borderWidth: 10,
+                                    groupPadding: 0,
+                                    shadow: false
+                                }
+                            },
+                            series: [
+                                {
+                                    type: 'column',
+                                    name: datatext + 'ne göre ilk 10',
+                                    data: series_data
+                                }
+                            ],
+                            xAxis: {
+                                title: {
+                                    text: 'Milletvekilleri'
+                                },
+                                tickInterval: 1,
+                                categories: category_data
+                            },
+                            yAxis: {
+                                title: {
+                                    text: datatext + ' sayısı'
+                                }
+                            }
+                        });
+                    }
+                })
+            });
+        });
+
+    </script>
+
+{% endblock %}
