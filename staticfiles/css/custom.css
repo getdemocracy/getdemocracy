@@ -1,0 +1,28 @@
+#chairnums{
+    background: url("../images/parliament.png") no-repeat center center;
+}
+
+#result-table{
+    background-color: #ffffff;
+}
+
+.footer, footer{
+    background: url("../images/footer-bg.png") repeat;
+    /*height: 25%;*/
+    position: relative;
+    bottom: 0px;
+}
+
+footer{
+    height: 25%;
+}
+
+html, body{
+    height: 100%;
+    position: relative;
+}
+
+.wrapper{
+    min-height: 75%;
+    position: relative;
+}
