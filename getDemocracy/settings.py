@@ -3,6 +3,8 @@
 import os
 SITE_ROOT = os.path.abspath(os.path.dirname(__file__))
 
+MAINTENANCE_MODE = True
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
