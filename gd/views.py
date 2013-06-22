@@ -1,10 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.template import RequestContext
 from models import MV, Mv_records
-from django.db.models import Count, Sum
+from django.db.models import Count
 from django.core.serializers import serialize
 
 
