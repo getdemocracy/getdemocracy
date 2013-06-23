@@ -16,7 +16,6 @@ if settings.MAINTENANCE_MODE:
 else:
     urlpatterns = patterns(
         '',
-        # Examples:
         url(r'^$', 'gd.views.home', name='home'),
         url(r'^getmvdata/all/', 'gd.views.mvnames'),
         url(r'^getmvdata/(?P<id>[\w-]+)/$', 'gd.views.getmvdata'),
