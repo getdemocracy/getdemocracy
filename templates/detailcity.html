@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+    <div class="row">
+        <div class="span12">
+            <h3>Şehirlere göre faaliyet sayıları dağılımı</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span3 bs-docs-sidebar">
+            <ul class="nav nav-list bs-docs-sidenav">
+                <li><a href="#" class="getdata" id="ilk_kanun"><i class="icon-chevron-right"></i> Sunulan Kanun
+                    Teklifleri</a></li>
+                <li><a href="#" class="getdata" id="kanun"><i class="icon-chevron-right"></i> İmzalanan Kanun
+                    Teklifleri</a></li>
+                <li><a href="#" class="getdata" id="sso"><i class="icon-chevron-right"></i> Sözlü Soru Önergeleri</a>
+                </li>
+                <li><a href="#" class="getdata" id="yso"><i class="icon-chevron-right"></i> Yazılı Soru Önergeleri</a>
+                </li>
+                <li><a href="#" class="getdata" id="ilk_mao"><i class="icon-chevron-right"></i> Sunulan Araştırma
+                    Önergeleri</a></li>
+                <li><a href="#" class="getdata" id="mao"><i class="icon-chevron-right"></i> İmzalanan Araştırma
+                    Önergeleri</a></li>
+                <li><a href="#" class="getdata" id="ilk_ggo"><i class="icon-chevron-right"></i> Sunulan Genel Görüşme
+                    Önergeleri</a></li>
+                <li><a href="#" class="getdata" id="ggo"><i class="icon-chevron-right"></i> İmzalanan Genel Görüşme
+                    Önergeleri</a></li>
+                <li><a href="#" class="getdata" id="ilk_go"><i class="icon-chevron-right"></i> Sunulan Gensoru
+                    Önergeleri</a></li>
+                <li><a href="#" class="getdata" id="go"><i class="icon-chevron-right"></i> İmzalanan Gensoru Önergeleri</a>
+                </li>
+            </ul>
+        </div>
+        <div class="span9">
+            <div id="top_numbers" class=""></div>
+        </div>
+    </div>
+
+    <script src="{% static "js/highcharts.js" %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.getdata').click(function () {
+                var datatip = $(this).attr('id');
+                var datatext = $(this).text()
+                $.ajax({
+                    type: 'GET',
+                    url: '/detay/sehir/',
+                    data: {'datatip': datatip, 'get_by_city': true},
+                    success: function (data) {
+                        console.log(data)
+{#                        category_data = []#}
+                        series_data = []
+                        $.each(data, function(a,b){
+{#                            category_data.push("<b>"+b.mv_name+"</b><br>"+b.mv_party)#}
+                            series_data.push({name: b.mv__city, y: b.dcount })
+                        });
+                        var chart = new Highcharts.Chart({
+                            chart: {
+                                renderTo: 'top_numbers',
+                                backgroundColor: null,
+                                plotBackgroundColor: '#ffffff',
+                                plotBorderWidth: null,
+                                plotShadow: false
+                            },
+                            title: {
+                                text: datatext
+                            },
+                            tooltip: {
+                                pointFormat: '<b>{point.y}'+datatext+'</b>',
+                                percentageDecimals: 1
+                            },
+                            plotOptions: {
+                                pie: {
+                                    allowPointSelect: false,
+                                    cursor: 'pointer',
+                                    dataLabels: {
+                                        enabled: true,
+                                        color: '#000000',
+                                        distance: 25,
+                                        connectorColor: '#000000',
+                                        formatter: function () {
+                                            return '<b>' + this.point.name + '</b> :' + this.point.y;
+                                        }
+                                    }
+                                }
+                            },
+                            series: [
+                                {
+                                    type: 'pie',
+                                    innerSize: '25%',
+                                    name: datatext,
+                                    data: series_data
+                                }
+                            ]
+                        });
+                    }
+                })
+            });
+        });
+
+    </script>
+
+{% endblock %}

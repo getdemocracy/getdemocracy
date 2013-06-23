@@ -4,9 +4,11 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.template import RequestContext
 from models import MV, Mv_records
-from django.db.models import Count
+from django.db.models import Count, Sum
 from django.core.serializers import serialize
 import json
+
+last_date = Mv_records.objects.order_by('-date')[1].date
 
 
 def home(request):
@@ -33,13 +35,44 @@ def detail(request):
     return render_to_response('detail.html', {'mvdata': mvdata}, context_instance=RequestContext(request))
 
 
+def detailParty(request):
+    req_data = request.GET
+
+    if not req_data.has_key('get_by_party'):
+        return render_to_response('detailparty.html', context_instance=RequestContext(request))
+    else:
+        datatip = req_data.__getitem__('datatip')
+        partydata = Mv_records.objects.filter(date=last_date).values('mv__party').annotate(dcount=Sum(datatip))
+        partydata_top = []
+        for row in partydata:
+            partydata_top.append(row)
+
+        dtx = json.dumps(partydata_top)
+        return HttpResponse(dtx, mimetype='application/json')
+
+
+def detailCity(request):
+    req_data = request.GET
+
+    if not req_data.has_key('get_by_city'):
+        return render_to_response('detailcity.html', context_instance=RequestContext(request))
+    else:
+        datatip = req_data.__getitem__('datatip')
+        citydata = Mv_records.objects.filter(date=last_date).values('mv__city').annotate(dcount=Sum(datatip)).order_by('-dcount')[:10]
+        print citydata
+        citydata_top = []
+        for row in citydata:
+            citydata_top.append(row)
+
+        dtx = json.dumps(citydata_top)
+        return HttpResponse(dtx, mimetype='application/json')
+
+
 def toptemp(request):
     return render_to_response('top.html', context_instance=RequestContext(request))
 
 
 def top(request):
-    last_date = Mv_records.objects.order_by('-date')[1].date
-
     req_data = request.GET
 
     mvdata_queryset = Mv_records.objects.filter(date=last_date).order_by('-'+req_data.__getitem__('datatip'))[:10]
