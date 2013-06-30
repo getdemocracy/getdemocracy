@@ -3,16 +3,18 @@
 {% block content %}
     <div id="marketing">
     <div class="row-fluid">
-        <div class="form-inline">
-            <label class="control-label" for="search_mv">Bilgilerini görmek istediğiniz milletvekilinin adını yazınız:</label>
-            <input type="text" id="search_mv" data-items="8" class="span4" autocomplete="off"/>
+        <div class="form-inline" style="text-align: center">
+            <span class="label label-info">Bilgilerini görmek istediğiniz milletvekilinin adını yazınız:</span>
+            <input type="text" id="search_mv" data-items="10" autocomplete="off"/>
             <input type="hidden" id="mvid" />
-            <button class="btn btn-primary" onclick="postThemAll()">Ara</button>
+            <button class="btn btn-warning" onclick="postThemAll()">Ara</button>
         </div>
     </div><br><br>
     <div class="row-fluid">
+        <div class="span3"></div>
         <div id="mv_pic" class="span2"></div>
         <div id="result" class="span4"></div>
+        <div class="span3"></div>
     </div>
     </div>
 {% if mvdata %}
@@ -40,10 +42,10 @@
         function postThemAll(){
             $.getJSON('/getmvdata/'+$('#mvid').val(),function(data){
                 $('#result').html(
-                        '<table id="result-table" class="table table-bordered table-striped"><caption>'
+                        '<table id="result-table" class="table table-bordered table-striped"><caption class="text-warning">'
                         + data[1].fields.name+' - '
                         + data[1].fields.party+' - '
-                        + data[1].fields.city +' | {{ tarih|date:"d m Y" }}</caption>'
+                        + data[1].fields.city +' | {{ tarih|date:"d m Y" }}</caption><br>'
                         + '<tbody><tr><td>Sunduğu Kanun Teklifleri</td><td>' + data[0].fields.ilk_kanun + '</td></tr>'
                         + '<tr><td>İmzaladığı Kanun Teklifleri</td><td>' + data[0].fields.kanun + '</td></tr>'
                         + '<tr><td>Sunduğu Meclis Araştırma Önergeleri</td><td>' + data[0].fields.ilk_mao + '</td></tr>'
@@ -58,7 +60,7 @@
             });
             $('#mv_pic').html(
                 '<img src="http://www.tbmm.gov.tr/mv_resim/' 
-                + $('#mvid').val() + '.jpg" class="img-circle"/>');
+                + $('#mvid').val() + '.jpg"/>');
             $('#search_mv').val('');
         }
     </script>

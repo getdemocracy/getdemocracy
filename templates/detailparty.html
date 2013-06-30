@@ -62,7 +62,7 @@
                                 text: datatext
                             },
                             subtitle: {
-                                text: 'Tarih: '
+                                text: 'Tarih: {{ tarih|date:"d m Y" }}'
                             },
                             tooltip: {
                                 pointFormat: '<b>{point.y}'+datatext+'</b>',
@@ -95,6 +95,7 @@
                     }
                 })
             });
+            $('.getdata').first().click()
         });
 
     </script>

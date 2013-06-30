@@ -6,6 +6,7 @@ class MV(models.Model):
     name = models.CharField(max_length=30)
     party = models.CharField(max_length=15)
     city = models.CharField(max_length=20, db_index=True)
+    date_last = models.DateTimeField(auto_now=True)
 
 
 class Mv_records(models.Model):
