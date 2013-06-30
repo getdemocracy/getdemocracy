@@ -1,12 +1,12 @@
 # Django settings for getDemocracy project.
-
 import os
-SITE_ROOT = os.path.abspath(os.path.dirname(__file__))
 
-MAINTENANCE_MODE = True
+SITE_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+MAINTENANCE_MODE = False
 
 ADMINS = (
     ('furiston', 'furiston@gmail.com'),
@@ -57,7 +57,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = os.path.abspath(os.path.join(SITE_ROOT, '../templates/static'))
+STATIC_ROOT = os.path.abspath(os.path.join(SITE_ROOT, '../static'))
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -105,7 +105,7 @@ ROOT_URLCONF = 'getDemocracy.urls'
 WSGI_APPLICATION = 'getDemocracy.wsgi.application'
 
 TEMPLATE_DIRS = (
-    os.path.abspath(os.path.join(SITE_ROOT, '../templates')),
+    "/home/furiston/work/getDemocracy/templates"
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -127,12 +127,13 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'south',
     'gd',
 )
+
+FORCE_SCRIPT_NAME = ''
+DEFAULT_CHARSET = 'utf-8'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
