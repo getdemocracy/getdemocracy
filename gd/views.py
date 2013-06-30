@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+from itertools import chain
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.template import RequestContext
@@ -16,7 +17,8 @@ def home(request):
     home view
     """
     index_data = {
-        'partypercent': MV.objects.values('party').annotate(dcount=Count('party'))
+        'partypercent': MV.objects.values('party').annotate(dcount=Count('party')),
+        'tarih': last_date
     }
 
     return render_to_response('index.html', index_data, context_instance=RequestContext(request))
@@ -27,19 +29,19 @@ def home_maintenance(request):
     view for maintenance mode
     """
     mNote = 'Şu anda ek geliştirmeler yapılmaktadır.'
-    return render_to_response('index.html', {'mnote': mNote}, context_instance=RequestContext(request))
+    return render_to_response('index.html', {'mnote': mNote, 'tarih': last_date}, context_instance=RequestContext(request))
 
 
 def detail(request):
     mvdata = MV.objects.all()
-    return render_to_response('detail.html', {'mvdata': mvdata}, context_instance=RequestContext(request))
+    return render_to_response('detail.html', {'mvdata': mvdata, 'tarih': last_date}, context_instance=RequestContext(request))
 
 
 def detailParty(request):
     req_data = request.GET
 
     if not req_data.has_key('get_by_party'):
-        return render_to_response('detailparty.html', context_instance=RequestContext(request))
+        return render_to_response('detailparty.html', {'tarih': last_date},context_instance=RequestContext(request))
     else:
         datatip = req_data.__getitem__('datatip')
         partydata = Mv_records.objects.filter(date=last_date).values('mv__party').annotate(dcount=Sum(datatip))
@@ -55,11 +57,10 @@ def detailCity(request):
     req_data = request.GET
 
     if not req_data.has_key('get_by_city'):
-        return render_to_response('detailcity.html', context_instance=RequestContext(request))
+        return render_to_response('detailcity.html', {'tarih': last_date}, context_instance=RequestContext(request))
     else:
         datatip = req_data.__getitem__('datatip')
         citydata = Mv_records.objects.filter(date=last_date).values('mv__city').annotate(dcount=Sum(datatip)).order_by('-dcount')[:10]
-        print citydata
         citydata_top = []
         for row in citydata:
             citydata_top.append(row)
@@ -69,7 +70,7 @@ def detailCity(request):
 
 
 def toptemp(request):
-    return render_to_response('top.html', context_instance=RequestContext(request))
+    return render_to_response('top.html', {'tarih': last_date}, context_instance=RequestContext(request))
 
 
 def top(request):
@@ -91,9 +92,10 @@ def getmvdata(request, id):
     :return: json data
     """
 
-    print(id)
-    numbersof = Mv_records.objects.filter(mv=id).order_by('-date')
-    mvx = serialize('json', numbersof)
+    numbersof = Mv_records.objects.filter(mv=id, date=last_date).order_by('-date')
+    mv_data = MV.objects.filter(mv_id=id)
+    whole_data = list(chain(numbersof, mv_data))
+    mvx = serialize('json', whole_data)
     return HttpResponse(mvx, mimetype='application/json')
 
 
