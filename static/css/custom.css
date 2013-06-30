@@ -25,4 +25,6 @@ html, body{
 .wrapper{
     min-height: 75%;
     position: relative;
+    padding-top: 80px;
+    margin-bottom: -80px;
 }
