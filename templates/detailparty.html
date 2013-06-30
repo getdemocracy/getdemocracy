@@ -2,11 +2,6 @@
 {% load staticfiles %}
 {% block content %}
     <div class="row">
-        <div class="span12">
-            <h3>Partilere göre faaliyet sayıları dağılımı</h3>
-        </div>
-    </div>
-    <div class="row">
         <div class="span3 bs-docs-sidebar">
             <ul class="nav nav-list bs-docs-sidenav">
                 <li><a href="#" class="getdata" id="ilk_kanun"><i class="icon-chevron-right"></i> Sunulan Kanun
@@ -32,6 +27,7 @@
             </ul>
         </div>
         <div class="span9">
+            <h3>Partilere göre faaliyet sayıları dağılımı - {{ tarih|date:"d m Y" }}</h3>
             <div id="top_numbers" class=""></div>
         </div>
     </div>
@@ -65,6 +61,9 @@
                             title: {
                                 text: datatext
                             },
+                            subtitle: {
+                                text: 'Tarih: {{ tarih|date:"d m Y" }}'
+                            },
                             tooltip: {
                                 pointFormat: '<b>{point.y}'+datatext+'</b>',
                                 percentageDecimals: 1
@@ -96,6 +95,7 @@
                     }
                 })
             });
+            $('.getdata').first().click()
         });
 
     </script>

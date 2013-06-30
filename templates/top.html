@@ -58,7 +58,10 @@
                                 plotShadow: false
                             },
                             title: {
-                                text: datatext + 'ne göre ilk 10'
+                                text: datatext + 'ne göre ilk 10 Milletvekili'
+                            },
+                            subtitle: {
+                                text: 'Tarih: {{ tarih|date:"d m Y" }}'
                             },
                             tooltip: {
                                 pointFormat: '<b>{point.y}</b>',
@@ -75,7 +78,7 @@
                             series: [
                                 {
                                     type: 'column',
-                                    name: datatext + 'ne göre ilk 10',
+                                    name: datatext + 'ne göre ilk 10 Milletvekili',
                                     data: series_data
                                 }
                             ],
@@ -95,6 +98,7 @@
                     }
                 })
             });
+            $('.getdata').first().click()
         });
 
     </script>

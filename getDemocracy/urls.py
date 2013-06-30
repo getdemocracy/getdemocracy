@@ -24,9 +24,8 @@ else:
         url(r'^detay/sehir/$', 'gd.views.detailCity', name='detailcity'),
         url(r'^enler/$', 'gd.views.toptemp', name='toptemp'),
         url(r'^en/$', 'gd.views.top', name='top'),
-        url(r'^getmvdata/(\d{4})/$', 'gd.views.getmvdata'),
-        url(r'^detay/$', 'gd.views.detail', name='detail'),
-        # url(r'^getDemocracy/', include('getDemocracy.foo.urls')),
+        url(r'^twitanaliz/$', 'twitanaliz.views.tweetResults', name="twitanaliz"),
+
         # url(r'^admin/', include(admin.site.urls)),
     )
 

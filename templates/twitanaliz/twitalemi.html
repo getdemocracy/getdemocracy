@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+    <div id="marketing">
+    <div class="row-fluid">
+        {% if reddiye %}
+            {{ reddiye }}
+            {% for red in reddiye %}
+                {{ red.red.rejjy }}
+            {% endfor %}
+        {% endif %}<br><br>
+        {% if admiye %}
+            {{ admiye }}
+        {% endif %}
+    </div>
+    </div>
+{% endblock %}
