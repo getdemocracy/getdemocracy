@@ -59,10 +59,11 @@
                             </ul>
                         </li>
                         <li><a href="{% url toptemp %}"><i class="icon-star icon-white"></i> En'ler</a></li>
-                        <li><a href="{% url twitanaliz %}"><img src='{% static "images/bird_blue_16.png" %}'/> Twittanaliz</a></li>
+                        <li><a href="{% url twitanaliz %}"><img src='{% static "images/bird_blue_16.png" %}'/>
+                            Twittanaliz</a></li>
                     </ul>
                     <ul class="nav pull-right">
-                        <li><a href="" >beni oku</a></li>
+                        <li><a href="">beni oku</a></li>
                     </ul>
                 </div>
             </div>
@@ -78,6 +79,18 @@
 </div>
 <footer>
     <div class="container-fluid footer">
+        <div class="row"><a href="https://twitter.com/share" class="twitter-share-button" data-lang="tr"
+                            data-size="large" data-hashtags="getdemocracy">Tweet</a>
+            <script>!function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                if (!d.getElementById(id)) {
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = p + '://platform.twitter.com/widgets.js';
+                    fjs.parentNode.insertBefore(js, fjs);
+                }
+            }(document, 'script', 'twitter-wjs');</script>
+        </div>
         <div class="row">
             <p>GetDemocracy <a href="http://www.gnu.org/philosophy/free-sw.html">özgür</a> bir yazılımdır. <a
                     href="/static/COPYING.txt">GNU GPL lisansı</a> ile sunulmaktadır.</p>

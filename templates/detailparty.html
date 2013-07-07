@@ -70,7 +70,7 @@
                             },
                             plotOptions: {
                                 pie: {
-                                    allowPointSelect: false,
+                                    allowPointSelect: true,
                                     cursor: 'pointer',
                                     dataLabels: {
                                         enabled: true,
@@ -80,7 +80,8 @@
                                         formatter: function () {
                                             return '<b>' + this.point.name + '</b> :' + this.point.y;
                                         }
-                                    }
+                                    },
+                                    showInLegend: true
                                 }
                             },
                             series: [
