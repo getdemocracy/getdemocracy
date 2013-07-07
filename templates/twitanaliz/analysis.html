@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+    <div id="marketing">
+    <p class="text-warning">Bu sayfadaki bilgiler <a href="https://twitter.com/TBMMGenelKurulu">@TBMMGenelKurulu</a> twitter hesabının tweet'leri incelenerek hazırlanmıştır.</p>
+    <div class="row-fluid">
+        <div class="span6"><img src="{{ MEDIA_URL }}approve.png" /></div>
+        <div class="span6"></div>
+    </div>
+    <div class="row-fluid">
+        {% if approve %}
+            {{ approve }}
+        {% endif %}
+    </div>
+    </div>
+{% endblock %}

@@ -59,8 +59,13 @@
                             </ul>
                         </li>
                         <li><a href="{% url toptemp %}"><i class="icon-star icon-white"></i> En'ler</a></li>
-                        <li><a href="{% url twitanaliz %}"><img src='{% static "images/bird_blue_16.png" %}'/>
-                            Twittanaliz</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src='{% static "images/bird_blue_16.png" %}'/> Detay<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url twitanaliz %}">Twittanaliz</a></li>
+                                <li><a href="{% url twitresults %}">Twitdökümü</a></li>
+                            </ul>
+                        </li>
                     </ul>
                     <ul class="nav pull-right">
                         <li><a href="">beni oku</a></li>
