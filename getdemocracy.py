@@ -53,6 +53,7 @@ def main():
         if 'href' in data:
             mvno = data[112:116]
             mvname = data[118:-9]
+            print mvname
 
         if not '<b>' in data and not 'href' in data:
             mvparty = data[17:-5]
@@ -97,6 +98,8 @@ def mv_workcount(idmv):
     resultsetDict = {'MV_ILK_KANUN': resultset[0], 'MV_KANUN': resultset[1], 'MV_ILK_MAO': resultset[2],
                      'MV_MAO': resultset[3], 'MV_ILK_GGO': resultset[4], 'MV_GGO': resultset[5],
                      'MV_ILK_GO': resultset[6], 'MV_GO': resultset[7], 'MV_SSO': resultset[8], 'MV_YSO': resultset[9]}
+
+    print resultsetDict
 
     return resultsetDict
 
