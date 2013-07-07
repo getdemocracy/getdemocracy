@@ -18,8 +18,7 @@ def getTweets(request):
     )
     jsonveri = json.loads(content)
 
-    last_item = twit.objects.values('twit_id').order_by('-twit_id')[0]['twit_id']
-    print last_item
+    last_item = twit.objects.values('twit_id').order_by('-twit_id')[0]['twit_id'] if twit.objects.all().count() > 0 else 0
 
     for item in jsonveri:
         if item['id'] > last_item:
