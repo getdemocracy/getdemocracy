@@ -1,5 +1,6 @@
-django
-BeautifulSoup4
+django==1.4.3
+BeautifulSoup4==4.1.1
 requests==1.2.0
 python-dateutil
 oauth2
+south
