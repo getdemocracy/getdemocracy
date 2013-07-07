@@ -1,6 +1,5 @@
 django
 BeautifulSoup4
 requests==1.2.0
-Cython
-uuid
 python-dateutil
+oauth2
