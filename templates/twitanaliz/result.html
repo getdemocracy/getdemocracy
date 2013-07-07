@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <div id="marketing">
+    <div class="row-fluid">
+        {% if result %}
+            <p class="text-warning">{{ result }}</p>
+        {% endif %}
+    </div>
+    </div>
+{% endblock %}

@@ -2,15 +2,24 @@
 {% load staticfiles %}
 {% block content %}
     <div id="marketing">
+    <p class="text-warning">Bu sayfadaki bilgiler <a href="https://twitter.com/TBMMGenelKurulu">@TBMMGenelKurulu</a> twitter hesabının tweet'leri incelenerek hazırlanmıştır.</p>
     <div class="row-fluid">
-        {% if reddiye %}
-            {{ reddiye }}
-            {% for red in reddiye %}
-                {{ red.red.rejjy }}
+        {% if twitdata %}
+            {% for twit in twitdata %}
+                {% if 'kabul edildi' in twit.twit_text %}
+                    {{ twit.twit_created|date:"d m Y H:i" }} - {{ twit.twit_text }}<br>
+                    <span style="margin-left:5em">{{ twitdata.forloop.counter.twit_text }}</span><br>
+                {% endif %}
+            {% endfor %}<br><br><br>
+            {% for twit in twitdata %}
+                {% if 'kabul edilmedi' in twit.twit_text %}
+                    {{ twit.twit_created|date:"d m Y H:i" }} - {{ twit.twit_text }}<br>
+{#                    <span style="margin-left:5em">{{ twitdata..twit_created|date:"d m Y H:i" }} - {{ twit.twit_text }}</span>#}
+                {% endif %}
+            {% endfor %}<br><br><br>
+            {% for twit in twitdata %}
+                {{ twit.twit_created|date:"d m Y H:i" }} - {{ twit.twit_text }}<br>
             {% endfor %}
-        {% endif %}<br><br>
-        {% if admiye %}
-            {{ admiye }}
         {% endif %}
     </div>
     </div>

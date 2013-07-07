@@ -59,12 +59,16 @@
                             </ul>
                         </li>
                         <li><a href="{% url toptemp %}"><i class="icon-star icon-white"></i> En'ler</a></li>
+                        <li><a href="{% url twitanaliz %}"><img src='{% static "images/bird_blue_16.png" %}'/> Twittanaliz</a></li>
+                    </ul>
+                    <ul class="nav pull-right">
+                        <li><a href="" >beni oku</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container content">
 
         {% block content %}
 
@@ -101,7 +105,7 @@
         link_color: '#007dbf',
         forum_id: 211876,
         feedback_tab_name: 'Taleplerinizi bize iletin.',
-        tab_label: 'Destek olun',
+        tab_label: 'Akıl fikir verin',
         tab_color: '#cc6d00',
         tab_position: 'middle-right',
         tab_inverted: false
