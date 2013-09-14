@@ -25,7 +25,8 @@ else:
         url(r'^detay/sehir/$', 'gd.views.detailCity', name='detailcity'),
         url(r'^enler/$', 'gd.views.toptemp', name='toptemp'),
         url(r'^en/$', 'gd.views.top', name='top'),
-        url(r'^twitanaliz/$', 'twitanaliz.views.tweetResults', name="twitanaliz"),
+        url(r'^twitanaliz/$', 'twitanaliz.views.tweetAnalysis', name="twitanaliz"),
+        url(r'^twitanaliz/dokum/$', 'twitanaliz.views.tweetResults', name="twitresults"),
         url(r'^gettweets/$', 'twitanaliz.views.getTweets', name="gettweets"),
         url(r'^nedir/$', direct_to_template, {'template': 'about.html'}),
 
