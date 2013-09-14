@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 # author: furiston
 
-import os, csv, datetime, glob, requests
+import os, csv, datetime, glob, requests, logging as l
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "getDemocracy.settings")
+l.basicConfig(filename='gd.log', level=l.DEBUG)
 from gd.models import MV, Mv_records
 import gdsettings as gds
 from bs4 import BeautifulSoup
@@ -38,7 +39,7 @@ def main():
                                           'MV_ILK_MAO', 'MV_MAO', 'MV_ILK_GGO', 'MV_GGO', 'MV_ILK_GO', 'MV_GO',
                                           'MV_SSO', 'MV_YSO'])
     listOfMv.writeheader()
-
+    l.info('data retrieved')
     counter = 0
 
     city = ""
@@ -64,11 +65,13 @@ def main():
             counter += 1
             print counter
 
+        l.info('data parsed for %s' %mvname)
+
     mvCsvFile.close()
 
     # below save the data to db with option 1 to save changes of mv datas also
     mvCsvToDb(1)
-    print('success')
+    l.info('all data succesfully recorded')
 
 
 def mvinfo(filename):
@@ -99,8 +102,7 @@ def mv_workcount(idmv):
                      'MV_MAO': resultset[3], 'MV_ILK_GGO': resultset[4], 'MV_GGO': resultset[5],
                      'MV_ILK_GO': resultset[6], 'MV_GO': resultset[7], 'MV_SSO': resultset[8], 'MV_YSO': resultset[9]}
 
-    print resultsetDict
-
+    l.info('data succesfully recorded for %s' % idmv)
     return resultsetDict
 
 
