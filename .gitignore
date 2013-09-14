@@ -2,7 +2,6 @@
 *.pot
 *.pyc
 getDemocracy/settings.py
-twitanaliz/views.py
 migrations
 .idea
 *.sql
