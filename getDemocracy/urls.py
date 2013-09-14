@@ -28,7 +28,7 @@ else:
         url(r'^twitanaliz/$', 'twitanaliz.views.tweetAnalysis', name="twitanaliz"),
         url(r'^twitanaliz/dokum/$', 'twitanaliz.views.tweetResults', name="twitresults"),
         url(r'^gettweets/$', 'twitanaliz.views.getTweets', name="gettweets"),
-        url(r'^nedir/$', direct_to_template, {'template': 'about.html'}),
+        url(r'^nedir/$', direct_to_template, {'template': 'about.html'}, name="readme"),
 
         # url(r'^admin/', include(admin.site.urls)),
         url(r'^accounts/login/$', 'django.contrib.auth.views.login', name="login"),

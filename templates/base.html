@@ -60,15 +60,15 @@
                         </li>
                         <li><a href="{% url toptemp %}"><i class="icon-star icon-white"></i> En'ler</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src='{% static "images/bird_blue_16.png" %}'/> Detay<b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src='{% static "images/bird_blue_16.png" %}'/> Twitter<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{% url twitanaliz %}">Twittanaliz</a></li>
+{#                                <li><a href="{% url twitanaliz %}">Twittanaliz</a></li>#}
                                 <li><a href="{% url twitresults %}">Twitdökümü</a></li>
                             </ul>
                         </li>
                     </ul>
                     <ul class="nav pull-right">
-                        <li><a href="">beni oku</a></li>
+                        <li><a href="{% url readme %}">beni oku</a></li>
                     </ul>
                 </div>
             </div>
@@ -99,7 +99,7 @@
         <div class="row">
             <p>GetDemocracy <a href="http://www.gnu.org/philosophy/free-sw.html">özgür</a> bir yazılımdır. <a
                     href="/static/COPYING.txt">GNU GPL lisansı</a> ile sunulmaktadır.</p>
-            <p>Kaynak koduna <a href="https://github.com/evrenkutar/getDemocracy#">buradan</a> erişebilirsiniz.</p>
+            <p>Kaynak koduna <a href="https://github.com/getdemocracy/getdemocracy#">buradan</a> erişebilirsiniz.</p>
             <p>copyright 2013 Get_Democracy()</p>
         </div>
     </div>
