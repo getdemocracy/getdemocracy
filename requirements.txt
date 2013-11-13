@@ -4,3 +4,4 @@ requests==1.2.0
 python-dateutil
 oauth2
 south
+psycopg2

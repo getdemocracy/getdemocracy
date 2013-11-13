@@ -27,4 +27,5 @@ class Mv_records(models.Model):
 
 class Works(models.Model):
     esas = models.CharField(max_length=512, db_index=True)
+    link = models.CharField(max_length=512, db_index=True)
     ozet = models.TextField(db_index=True)
