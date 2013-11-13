@@ -5,7 +5,7 @@ import os, csv, datetime, glob, requests, logging as l
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "getDemocracy.settings")
 l.basicConfig(filename='gd.log', level=l.DEBUG)
-from gd.models import MV, Mv_records
+from gd.models import MV, Mv_records, Works
 import gdsettings as gds
 from bs4 import BeautifulSoup
 
@@ -18,6 +18,7 @@ def main():
     :return: success
     """
     page = requests.get(str(gds.MV_LIST_LINK))
+    page.close()
     html = BeautifulSoup(page.text, from_encoding="iso-8859-9")
     parseData = html.table.find_all('td')
 
@@ -69,7 +70,7 @@ def main():
 
     mvCsvFile.close()
 
-    # below save the data to db with option 1 to save changes of mv datas also
+    # below save the data to db with option 1 to save changes of mv datas alsotable.find_al
     mvCsvToDb(1)
     l.info('all data succesfully recorded')
 
@@ -88,13 +89,32 @@ def mv_workcount(idmv):
 
     for link in all_links1:
         page = requests.get(link + str(idmv))
+        page.close()
         html = BeautifulSoup(page.text, "lxml")
         for table in html.find_all('table'):
             if '2' in table.get('border'):
                 resultset.append(len(table.find_all('tr')) - 1)
+                tr = table.find_all('tr')
+                for td in range(len(tr)):
+                    keys, values = [], []
+                    if td == 0:
+                        keys.append([v.getText() for v in tr[td].find_all('td')])
+                    else:
+                        values.append([v.getText() for v in tr[td].find_all('td')])
+                    for k in range(len(keys)):
+                        if 'esas' in keys[k]:
+                            if len(values) > 1:
+                                for v in values:
+                                    Works.objects.get_or_create(esas=v[k], ozet=v[k+2])
+                                    MV.objects.get(mv_id=idmv).mv_works.add(Works.objects.get(esas=v[k]))
+                            else:
+                                Works.objects.get_or_create(esas=values[k], ozet=values[k+2])
+                                MV.objects.get(mv_id=idmv).mv_works.add(Works.objects.get(esas=values[k]))
+
 
     for link in all_links2:
         page = requests.get(link + str(idmv))
+        page.close()
         html = BeautifulSoup(page.text, "lxml")
         resultset.append(len(html.find_all('tr', valign="TOP")) / 2)
 
@@ -119,13 +139,9 @@ def mvCsvToDb(record_option):
 
     for mv in mv_info:
         if record_option == 1:
-            mvrecord = MV(
-                mv_id=int(mv.get('MVNO')),
-                name=mv.get('MVNAME'),
-                party=mv.get('MVPARTY'),
-                city=mv.get('MVCITY')
-            )
-            mvrecord.save()
+            MV.objects.filter(
+                mv_id=int(mv.get('MVNO'))
+            ).update(date_last=datetime.datetime.now())
 
         mvdata = Mv_records(
             mv=MV.objects.get(pk=int(mv.get('MVNO'))),

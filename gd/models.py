@@ -7,6 +7,7 @@ class MV(models.Model):
     party = models.CharField(max_length=15)
     city = models.CharField(max_length=20, db_index=True)
     date_last = models.DateTimeField(auto_now=True)
+    mv_works = models.ManyToManyField('Works', related_name='mv_works')
 
 
 class Mv_records(models.Model):
@@ -22,3 +23,8 @@ class Mv_records(models.Model):
     ggo = models.IntegerField()
     ilk_go = models.IntegerField()
     go = models.IntegerField()
+
+
+class Works(models.Model):
+    esas = models.CharField(max_length=512, db_index=True)
+    ozet = models.TextField(db_index=True)
