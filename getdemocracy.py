@@ -133,7 +133,7 @@ def mvCsvToDb(record_option):
         if record_option == 1:
             MV.objects.filter(
                 mv_id=int(mv.get('MVNO'))
-            ).update(date_last=datetime.datetime.today())
+            ).update(date_last=datetime.date.today())
 
         if record_option == 2:
             mvrecord = MV(
