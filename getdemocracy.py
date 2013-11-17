@@ -101,7 +101,7 @@ def mv_workcount(idmv):
                         esas=base_td[-3].getText(),
                         link=base_td[-3].find('a').get('href'),
                         ozet=base_td[-1].getText())
-                    MV.objects.get(mv_id=6476)[0].mv_works.add(Works.objects.filter(link=base_td[-3].find('a').get('href')))
+                    MV.objects.get(mv_id=6476).mv_works.add(Works.objects.filter(link=base_td[-3].find('a').get('href'))[0])
 
 
     for link in all_links2:
